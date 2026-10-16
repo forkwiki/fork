@@ -1,0 +1,15 @@
+{
+  "name": "fork-culture-graph",
+  "version": "1.0.0",
+  "description": "A lineage explorer for internet culture. Everything comes from something.",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "node scripts/serve.cjs",
+    "dev": "node scripts/serve.cjs",
+    "validate": "node scripts/validate.cjs",
+    "charts": "node scripts/charts.cjs"
+  },
+  "keywords": ["memes", "internet-culture", "lineage", "genealogy", "graph", "visualization", "canvas", "svg", "vanilla-js"],
+  "engines": { "node": ">=18" }
+}
