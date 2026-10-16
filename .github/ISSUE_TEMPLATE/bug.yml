@@ -1,0 +1,16 @@
+name: Bug report
+description: Something looks or behaves wrong.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, what you saw. Screenshots help.
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Where
+      placeholder: "Homepage graph, Chrome 141, macOS"
