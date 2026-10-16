@@ -9,12 +9,12 @@ Paste a meme, a ticker or a link. See where it started, what it became, and ever
 
 <br>
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-1C3FB0?style=flat-square)](LICENSE)
-[![Zero build](https://img.shields.io/badge/build-none-151515?style=flat-square)](#run-it-in-30-seconds)
-[![Vanilla JS](https://img.shields.io/badge/vanilla-JS-151515?style=flat-square)](src)
-[![Lineages](https://img.shields.io/badge/objects-663-1C3FB0?style=flat-square)](src/data.js)
-[![Documented](https://img.shields.io/badge/documented-81%20with%20sources-2E6B3E?style=flat-square)](#data-you-can-trust)
-[![PRs welcome](https://img.shields.io/badge/PRs-welcome-B0334A?style=flat-square)](CONTRIBUTING.md)
+[![License: MIT](https://img.shields.io/badge/license-MIT-7E97FF?style=flat-square&labelColor=0B0C0E)](LICENSE)
+[![Zero build](https://img.shields.io/badge/build-none-151515?style=flat-square&labelColor=0B0C0E)](#run-it-in-30-seconds)
+[![Vanilla JS](https://img.shields.io/badge/vanilla-JS-151515?style=flat-square&labelColor=0B0C0E)](src)
+[![Lineages](https://img.shields.io/badge/objects-663-1C3FB0?style=flat-square&labelColor=0B0C0E)](src/data.js)
+[![Documented](https://img.shields.io/badge/documented-81%20with%20sources-2E6B3E?style=flat-square&labelColor=0B0C0E)](#data-you-can-trust)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-B0334A?style=flat-square&labelColor=0B0C0E)](CONTRIBUTING.md)
 
 [**Run it**](#run-it-in-30-seconds) · [**How it works**](#how-it-works) · [**Add a lineage**](CONTRIBUTING.md) · [**Docs**](docs)
 
@@ -220,7 +220,7 @@ Then run `npm run validate`. Full guide: **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
 ## Design
 
-Editorial on purpose: warm paper, near-black ink, one cobalt signal, a high-contrast serif (Newsreader) for names and a grotesk (Schibsted Grotesk) for metadata. The logo, the loader, the section rules, the nav underline and the origin markers are all the same gesture — **a line that forks.** Light and dark themes, keyboard navigation in every graph, `prefers-reduced-motion` respected. See [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) and [docs/MOTION_SYSTEM.md](docs/MOTION_SYSTEM.md).
+A terminal, on purpose: one monospaced voice (JetBrains Mono), hairline rules, one periwinkle accent, and an ANSI-style colour per family that only the branches carry. The logo, the loader, the section rules, the nav underline and the origin markers are all the same gesture — **a line that forks.** Dark by default with a light theme toggle, keyboard navigation in every graph, `prefers-reduced-motion` respected. See [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) and [docs/MOTION_SYSTEM.md](docs/MOTION_SYSTEM.md).
 
 ## Roadmap
 

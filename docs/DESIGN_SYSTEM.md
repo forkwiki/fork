@@ -6,27 +6,24 @@
 A single stem with a base dot (the origin). Two-thirds up, one branch peels off to the right in a controlled curve and ends in a small open node; the stem continues. Asymmetric on purpose: inheritance continues, mutation leaves. Used as logo, favicon, origin marker, loader, cursor while tracing, and the mutation glyph on edges (miniaturised).
 
 ## Colour
-| Token | Light | Dark | Use |
-|---|---|---|---|
-| `--paper` | #F2EFE7 | #121315 | ground |
-| `--paper-2` | #E9E5DA | #1B1C1F | hover, sheet |
-| `--ink` | #151515 | #ECE8DE | text, branches |
-| `--ink-2` | #4B4A46 | #B3AFA6 | secondary text |
-| `--muted` | #8C8A83 | #75736D | meta, uncertain links |
-| `--rule` | #D4CFC3 | #2D2E32 | hairlines |
-| `--cobalt` | #1C3FB0 | #7E97FF | signal: selected lineage, primary action, score |
-| `--electric` | #2B5CFF | #A4B6FF | hover / interaction only |
+Dark-first terminal palette; a light theme mirrors it.
 
-One accent for interaction. Families get muted printing-ink colours (teal, cobalt, ochre, crimson, green, plum, vermilion) so the culture graph reads like an atlas; they appear only on branches, dots and 8px family keys. No gradients or glows.
+| Token | Dark | Light | Use |
+|---|---|---|---|
+| `--paper` | #0B0C0E | #F4F4F1 | ground |
+| `--ink` | #E6E6E1 | #111214 | text, branches |
+| `--ink-2` | #A3A39C | #4A4B4F | secondary text |
+| `--muted` | #6B6C68 | #85867F | meta, `//` comments |
+| `--rule` | #24262B | #D9D9D2 | hairlines |
+| `--cobalt` | #7E97FF | #2B47D8 | the one accent: selection, primary action, cursor |
+
+Families use an ANSI-like set (cyan, blue, yellow, magenta, green, violet, orange) and appear only on branches, dots and 8px keys.
 
 ## Type
-- **Newsreader** (display serif, optical sizes) — object names, page titles, lineage names, statements.
-- **Schibsted Grotesk** (utility sans) — nav, labels, metadata, metrics, controls. Uppercase labels at 11px, +0.08em tracking. Tabular numerals everywhere digits align.
-
-Scale: 11 · 13 · 15 · 18 · 24 · 34 · 52 · clamp(48–104).
+One family: **JetBrains Mono** (300–700). Headings 500 with tight tracking, body 14px/1.6, labels 10.5–11px lowercase. Section eyebrows read as comments (`// hot forks`), buttons as `[ open the graph ]`, the trace field as a `$` prompt, the current nav item as `~/explore`.
 
 ## Components
-- **Node**: 7px open circle (diamond for tokens), name in serif, `TYPE · MON YYYY` in sans below. No cards.
+- **Node**: open circle (diamond for tokens), name and `TYPE · MON YYYY` in mono. No cards.
 - **Branch**: tapered ribbon (verified), dashed (likely), dotted (disputed), fork mark (mutation).
 - **Status chip**: uppercase sans, 1px border; FORKING and PEAKING fill cobalt.
 - **Rows** instead of cards: Hot Forks, Families, Deepest, Archive.

@@ -696,6 +696,18 @@
   }
   window.addEventListener('hashchange', routeNow);
 
+  /* ---------------- theme ---------------- */
+  (function () {
+    let t = null; try { t = localStorage.getItem('fork-theme'); } catch (_) { }
+    if (t === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    $('#themeT').addEventListener('click', () => {
+      const light = document.documentElement.getAttribute('data-theme') === 'light';
+      if (light) document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme', 'light');
+      try { localStorage.setItem('fork-theme', light ? 'dark' : 'light'); } catch (_) { }
+      window.dispatchEvent(new Event('fork-theme'));
+    });
+  })();
+
   /* ---------------- boot ---------------- */
   let loaderDone = false;
   function finishLoader() {

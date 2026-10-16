@@ -12,8 +12,8 @@
   const clamp = U.clamp;
   const FAM_VAR = { 'viral-animals': '--f-viral', 'ai-celebrities': '--f-ai', 'crypto-mascots': '--f-crypto', 'brainrot': '--f-brainrot', 'reaction-formats': '--f-reaction', 'political-memes': '--f-political', 'game-memes': '--f-game' };
   const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  const SANS = '"Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif';
-  const SERIF = 'Newsreader, Georgia, serif';
+  const SANS = '"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace';
+  const SERIF = SANS;
 
   let PAL = null, palAt = 0;
   function palette() {
@@ -44,6 +44,7 @@
       new IntersectionObserver(es => { this.visible = es[0].isIntersecting; if (this.visible) this.loop(); }).observe(host);
       document.addEventListener('visibilitychange', () => { if (!document.hidden) this.loop(); });
       matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { PAL = null; this.loop(); });
+      window.addEventListener('fork-theme', () => { PAL = null; this.loop(); });
       this.bind(); this.loop();
     }
     build() {
@@ -320,14 +321,14 @@
       for (const h of this.hubs) {
         const x = this.sx(h.x), y = this.sy(h.y);
         if (x > this.W || x + h.w * k < 0 || y > this.H || y + h.h * k < 0) continue;
-        const fs = clamp(32 * k, 13, 30);
+        const fs = clamp(26 * k, 12, 22);
         ctx.globalAlpha = this.fam && this.fam !== h.fam ? .3 : 1;
-        ctx.font = `italic 400 ${fs}px ${SERIF}`; ctx.fillStyle = P.ink;
+        ctx.font = `500 ${fs}px ${SERIF}`; ctx.fillStyle = P.ink;
         ctx.fillText(h.name, x + 32, y + fs * .95 + 4);
         const tw = ctx.measureText(h.name).width;
         const vis = this.nodes.filter(n => n.fam === h.fam && n.t <= t).length;
-        ctx.font = `600 ${clamp(10.5 * Math.sqrt(rel), 9.5, 12)}px ${SANS}`; ctx.fillStyle = P.muted;
-        ctx.fillText(`${vis} OBJECTS`, x + 32 + tw + 10, y + fs * .95 + 3);
+        ctx.font = `400 ${clamp(10.5 * Math.sqrt(rel), 9.5, 11.5)}px ${SANS}`; ctx.fillStyle = P.muted;
+        ctx.fillText(`${vis} objects`, x + 32 + tw + 10, y + fs * .95 + 3);
         boxes.push([x, y - 4, x + 32 + tw + 90, y + fs + 12]);
         ctx.globalAlpha = 1;
       }
@@ -354,7 +355,7 @@
         if (shown >= max && pri < 1e6) break;
         const x = this.sx(n.x), y = this.sy(n.y); if (x < -10 || x > this.W || y < 0 || y > this.H) continue;
         const big = pri >= 1e6 || n.depth === 0;
-        ctx.font = big ? `500 ${n.depth === 0 ? 15.5 : 14}px ${SERIF}` : `400 12.5px ${SERIF}`;
+        ctx.font = big ? `500 ${n.depth === 0 ? 13 : 12}px ${SERIF}` : `400 11px ${SERIF}`;
         const w = ctx.measureText(n.d.name).width, r = n.rad * rs;
         const lx = x + r + (n.depth === 0 ? 16 : 6), ly = n.depth === 0 ? y + 5 : y - 3, b = [lx - 2, ly - 11, lx + w + 3, ly + 4];
         if (pri < 1e6 && !free(b)) continue;

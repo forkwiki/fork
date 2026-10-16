@@ -38,10 +38,11 @@
 
   const mctx = document.createElement('canvas').getContext('2d');
   const tw = (text, font, track) => { mctx.font = font; return mctx.measureText(text).width + (track || 0) * text.length; };
-  const F_NM = '400 15px Newsreader, Georgia, serif';
-  const F_ROOT = 'italic 400 22px Newsreader, Georgia, serif';
-  const F_HUB = '400 30px Newsreader, Georgia, serif';
-  const F_MT = '600 9.5px "Schibsted Grotesk", Arial, sans-serif';
+  const MONO = '"JetBrains Mono", ui-monospace, Menlo, monospace';
+  const F_NM = '400 12.5px ' + MONO;
+  const F_ROOT = '500 16px ' + MONO;
+  const F_HUB = '500 22px ' + MONO;
+  const F_MT = '400 9.5px ' + MONO;
 
   /* bezier helpers (screen space) */
   function bz(P, t) { const u = 1 - t, a = u * u * u, b = 3 * u * u * t, c = 3 * u * t * t, d = t * t * t; return [a * P[0][0] + b * P[1][0] + c * P[2][0] + d * P[3][0], a * P[0][1] + b * P[1][1] + c * P[2][1] + d * P[3][1]]; }

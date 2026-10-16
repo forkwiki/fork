@@ -7,21 +7,21 @@ const D = require('./load-data.cjs')();
 const OUT = path.join(__dirname, '..', 'docs', 'media');
 fs.mkdirSync(OUT, { recursive: true });
 const DAY = 864e5, NOW = +D.SAMPLE_NOW;
-const SANS = "'Helvetica Neue', Helvetica, Arial, sans-serif";
+const SANS = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
 const MONO = SANS;
-const SERIF = "Georgia, 'Times New Roman', serif";
-const PAPER = '#F2EFE7', INK = '#151515', INK2 = '#4B4A46', MUTED = '#8C8A83', RULE = '#D4CFC3', COBALT = '#1C3FB0';
-const FAM = { 'viral-animals': '#1E6E78', 'ai-celebrities': '#1C3FB0', 'crypto-mascots': '#A06F12', 'brainrot': '#B0334A', 'reaction-formats': '#2E6B3E', 'political-memes': '#5D3A8A', 'game-memes': '#C1531C' };
+const SERIF = SANS;
+const PAPER = '#0B0C0E', INK = '#E6E6E1', INK2 = '#A3A39C', MUTED = '#6B6C68', RULE = '#24262B', COBALT = '#7E97FF';
+const FAM = { 'viral-animals': '#56C2D6', 'ai-celebrities': '#7E97FF', 'crypto-mascots': '#E5C07B', 'brainrot': '#E06C9F', 'reaction-formats': '#98C379', 'political-memes': '#C192F0', 'game-memes': '#EE8A62' };
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const f1 = v => (+v).toFixed(1);
 
 function card(w, h, title, sub, body) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(title)}">
-<rect x=".5" y=".5" width="${w - 1}" height="${h - 1}" fill="${PAPER}" stroke="${INK}"/>
-<path d="M24 22.5H${w - 24}" stroke="${INK}" stroke-width="1"/>
+<rect x=".5" y=".5" width="${w - 1}" height="${h - 1}" fill="${PAPER}" stroke="${RULE}"/>
+<path d="M24 22.5H${w - 24}" stroke="${RULE}" stroke-width="1"/>
 <path d="M24 22.5C36 22.5 34 36 47 36" fill="none" stroke="${COBALT}" stroke-width="1.6"/><circle cx="49" cy="36" r="2.6" fill="${PAPER}" stroke="${COBALT}" stroke-width="1.6"/>
-<text x="58" y="41" fill="${MUTED}" font-family="${SANS}" font-size="10.5" font-weight="700" letter-spacing="1.3">${esc(sub.toUpperCase())}</text>
-<text x="24" y="78" fill="${INK}" font-family="${SERIF}" font-size="30" letter-spacing="-.6">${esc(title)}</text>
+<text x="58" y="41" fill="${MUTED}" font-family="${SANS}" font-size="11" letter-spacing=".2">// ${esc(sub)}</text>
+<text x="24" y="78" fill="${INK}" font-family="${SERIF}" font-size="24" font-weight="500" letter-spacing="-.8">${esc(title)}</text>
 ${body}
 </svg>`;
 }
@@ -34,17 +34,17 @@ function timeline() {
   const max = Math.ceil(Math.max(...rows.map(r => r.doc + r.smp)) / 20) * 20;
   const bw = (x1 - x0) / rows.length, Y = v => y1 - v / max * (y1 - y0);
   let g = '';
-  for (let v = 0; v <= max; v += 10) g += `<line x1="${x0}" x2="${x1}" y1="${f1(Y(v))}" y2="${f1(Y(v))}" stroke="#E2DDD2"/><text x="${x0 - 10}" y="${f1(Y(v) + 4)}" fill="#8C8A83" font-family="${MONO}" font-size="11" text-anchor="end">${v}</text>`;
+  for (let v = 0; v <= max; v += 10) g += `<line x1="${x0}" x2="${x1}" y1="${f1(Y(v))}" y2="${f1(Y(v))}" stroke="#1C1F25"/><text x="${x0 - 10}" y="${f1(Y(v) + 4)}" fill="#6B6C68" font-family="${MONO}" font-size="11" text-anchor="end">${v}</text>`;
   rows.forEach((r, i) => {
     const x = x0 + i * bw + 2, w = bw - 4;
-    if (r.smp) g += `<rect x="${f1(x)}" y="${f1(Y(r.smp))}" width="${f1(w)}" height="${f1(y1 - Y(r.smp))}" fill="#151515" fill-opacity=".22"/>`;
-    if (r.doc) g += `<rect x="${f1(x)}" y="${f1(Y(r.smp + r.doc))}" width="${f1(w)}" height="${f1(Y(r.smp) - Y(r.smp + r.doc))}" fill="#1C3FB0"/>`;
-    const d = new Date(r.t); if (d.getUTCMonth() === 0 && d.getUTCFullYear() % 2 === 0) g += `<text x="${f1(x)}" y="${y1 + 20}" fill="#8C8A83" font-family="${MONO}" font-size="11">${d.getUTCFullYear()}</text>`;
+    if (r.smp) g += `<rect x="${f1(x)}" y="${f1(Y(r.smp))}" width="${f1(w)}" height="${f1(y1 - Y(r.smp))}" fill="#E6E6E1" fill-opacity=".22"/>`;
+    if (r.doc) g += `<rect x="${f1(x)}" y="${f1(Y(r.smp + r.doc))}" width="${f1(w)}" height="${f1(Y(r.smp) - Y(r.smp + r.doc))}" fill="#7E97FF"/>`;
+    const d = new Date(r.t); if (d.getUTCMonth() === 0 && d.getUTCFullYear() % 2 === 0) g += `<text x="${f1(x)}" y="${y1 + 20}" fill="#6B6C68" font-family="${MONO}" font-size="11">${d.getUTCFullYear()}</text>`;
   });
   const peak = rows.reduce((a, b) => (b.doc + b.smp > a.doc + a.smp ? b : a));
   const pi = rows.indexOf(peak), px = x0 + pi * bw + bw / 2;
-  g += `<path d="M${f1(px)} ${f1(Y(peak.doc + peak.smp) - 6)}V${y0 - 2}H${f1(px - 150)}" fill="none" stroke="#1C3FB0" stroke-width="1" stroke-dasharray="2 3"/><text x="${f1(px - 156)}" y="${y0 + 2}" fill="#1C3FB0" font-family="${MONO}" font-size="11" text-anchor="end">Q3 2026 · Jean Philanthrope, Glorp 2026, Lagos Cut</text>`;
-  g += `<rect x="${W - 250}" y="62" width="10" height="10" fill="#1C3FB0"/><text x="${W - 234}" y="71" fill="#4B4A46" font-family="${MONO}" font-size="11">documented</text><rect x="${W - 140}" y="62" width="10" height="10" fill="#151515" fill-opacity=".22"/><text x="${W - 124}" y="71" fill="#4B4A46" font-family="${MONO}" font-size="11">sample</text>`;
+  g += `<path d="M${f1(px)} ${f1(Y(peak.doc + peak.smp) - 6)}V${y0 - 2}H${f1(px - 150)}" fill="none" stroke="#7E97FF" stroke-width="1" stroke-dasharray="2 3"/><text x="${f1(px - 156)}" y="${y0 + 2}" fill="#7E97FF" font-family="${MONO}" font-size="11" text-anchor="end">Q3 2026 · Jean Philanthrope, Glorp 2026, Lagos Cut</text>`;
+  g += `<rect x="${W - 250}" y="62" width="10" height="10" fill="#7E97FF"/><text x="${W - 234}" y="71" fill="#A3A39C" font-family="${MONO}" font-size="11">documented</text><rect x="${W - 140}" y="62" width="10" height="10" fill="#E6E6E1" fill-opacity=".22"/><text x="${W - 124}" y="71" fill="#A3A39C" font-family="${MONO}" font-size="11">sample</text>`;
   return card(W, H, 'Culture is forking faster', `new forks per quarter · ${D.nodes.filter(n => n.parent).length} forks since 2016`, g);
 }
 
@@ -56,10 +56,10 @@ function families() {
   let g = '';
   rows.forEach((r, i) => {
     const y = 104 + i * rowH, w = (x1 - x0) * r.all / max, wd = (x1 - x0) * r.doc / max, c = FAM[r.f.id];
-    g += `<circle cx="40" cy="${y + 11}" r="5" fill="${c}"/><text x="54" y="${y + 15}" fill="#151515" font-family="${SERIF}" font-size="16">${esc(r.f.name)}</text>`;
+    g += `<circle cx="40" cy="${y + 11}" r="5" fill="${c}"/><text x="54" y="${y + 15}" fill="#E6E6E1" font-family="${SERIF}" font-size="16">${esc(r.f.name)}</text>`;
     g += `<rect x="${x0}" y="${y + 3}" width="${f1(w)}" height="16" rx="4" fill="${c}" fill-opacity=".28"/>`;
     if (r.doc) g += `<rect x="${x0}" y="${y + 3}" width="${f1(wd)}" height="16" rx="4" fill="${c}"/>`;
-    g += `<text x="${f1(x0 + w + 10)}" y="${y + 15}" fill="#4B4A46" font-family="${MONO}" font-size="12">${r.all}${r.doc ? ` · ${r.doc} doc` : ''}</text>`;
+    g += `<text x="${f1(x0 + w + 10)}" y="${y + 15}" fill="#A3A39C" font-family="${MONO}" font-size="12">${r.all}${r.doc ? ` · ${r.doc} doc` : ''}</text>`;
   });
   return card(W, H, 'Seven cultural families', 'objects per family · solid = documented with sources', g);
 }
@@ -71,12 +71,12 @@ function deepest() {
   let g = '';
   roots.forEach((r, i) => {
     const y = 118 + i * rowH, c = FAM[r.family], xe = x0 + (x1 - x0) * r.depthBelow / maxD;
-    g += `<text x="32" y="${y + 5}" fill="#151515" font-family="${SERIF}" font-size="17">${esc(r.name)}</text><text x="32" y="${y + 22}" fill="#8C8A83" font-family="${MONO}" font-size="11">${new Date(r.t).getUTCFullYear()} · ${r.doc ? 'documented' : 'sample'}</text>`;
+    g += `<text x="32" y="${y + 5}" fill="#E6E6E1" font-family="${SERIF}" font-size="17">${esc(r.name)}</text><text x="32" y="${y + 22}" fill="#6B6C68" font-family="${MONO}" font-size="11">${new Date(r.t).getUTCFullYear()} · ${r.doc ? 'documented' : 'sample'}</text>`;
     g += `<line x1="${x0}" x2="${f1(xe)}" y1="${y}" y2="${y}" stroke="${c}" stroke-width="2" stroke-opacity=".7"/>`;
-    for (let k = 0; k <= r.depthBelow; k++) { const x = x0 + (x1 - x0) * k / maxD; g += `<circle cx="${f1(x)}" cy="${y}" r="${k === 0 ? 5 : 3.4}" fill="${k === 0 ? c : '#F2EFE7'}" stroke="${c}" stroke-width="1.6"/>`; }
-    g += `<text x="${x1 + 24}" y="${y + 4}" fill="#151515" font-family="${MONO}" font-size="13">depth ${r.depthBelow}</text><text x="${W - 32}" y="${y + 4}" fill="#1C3FB0" font-family="${MONO}" font-size="13" text-anchor="end">${r.score}</text>`;
+    for (let k = 0; k <= r.depthBelow; k++) { const x = x0 + (x1 - x0) * k / maxD; g += `<circle cx="${f1(x)}" cy="${y}" r="${k === 0 ? 5 : 3.4}" fill="${k === 0 ? c : '#0B0C0E'}" stroke="${c}" stroke-width="1.6"/>`; }
+    g += `<text x="${x1 + 24}" y="${y + 4}" fill="#E6E6E1" font-family="${MONO}" font-size="13">depth ${r.depthBelow}</text><text x="${W - 32}" y="${y + 4}" fill="#7E97FF" font-family="${MONO}" font-size="13" text-anchor="end">${r.score}</text>`;
   });
-  g += `<text x="${W - 32}" y="100" fill="#8C8A83" font-family="${MONO}" font-size="10.5" text-anchor="end">FORK SCORE</text>`;
+  g += `<text x="${W - 32}" y="100" fill="#6B6C68" font-family="${MONO}" font-size="10.5" text-anchor="end">FORK SCORE</text>`;
   return card(W, H, 'Deepest lineages', 'one dot per generation of unbroken descent', g);
 }
 
@@ -89,10 +89,10 @@ function platforms() {
   rows.forEach(([p, c], i) => {
     const h = (y1 - y0) * c / max, x = x0 + i * bw + 8, w = bw - 16;
     g += `<rect x="${f1(x)}" y="${f1(y1 - h)}" width="${f1(w)}" height="${f1(h)}" fill="url(#pg)"/>`;
-    g += `<text x="${f1(x + w / 2)}" y="${f1(y1 - h - 8)}" fill="#151515" font-family="${MONO}" font-size="12" text-anchor="middle">${c}</text>`;
-    g += `<text x="${f1(x + w / 2)}" y="${y1 + 20}" fill="#4B4A46" font-family="${SANS}" font-size="12.5" text-anchor="middle">${esc(D.PLATFORMS[p])}</text>`;
+    g += `<text x="${f1(x + w / 2)}" y="${f1(y1 - h - 8)}" fill="#E6E6E1" font-family="${MONO}" font-size="12" text-anchor="middle">${c}</text>`;
+    g += `<text x="${f1(x + w / 2)}" y="${y1 + 20}" fill="#A3A39C" font-family="${SANS}" font-size="12.5" text-anchor="middle">${esc(D.PLATFORMS[p])}</text>`;
   });
-  g = `<defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1C3FB0"/><stop offset="1" stop-color="#1C3FB0" stop-opacity=".55"/></linearGradient></defs>` + g;
+  g = `<defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7E97FF"/><stop offset="1" stop-color="#7E97FF" stop-opacity=".55"/></linearGradient></defs>` + g;
   return card(W, H, 'Where things fork', 'objects by platform of first appearance', g);
 }
 
@@ -130,23 +130,23 @@ function banner() {
 @keyframes pop{to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.br path{animation:none;stroke-dashoffset:0}.nd circle,.og{animation:none;opacity:1}}
 </style></defs>
-<rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" fill="${PAPER}" stroke="${INK}"/>
+<rect x=".5" y=".5" width="${W - 1}" height="${H - 1}" fill="${PAPER}" stroke="${RULE}"/>
 <g class="br">${paths}</g>
 <g class="nd">${nodes}</g>
 <g class="og"><circle cx="${ox}" cy="${oy}" r="7" fill="${COBALT}"/></g>
 <g>${pulses}</g>
 <g transform="translate(64 128)">
   <g transform="scale(2.4)" fill="none" stroke="${COBALT}" stroke-width="2.2" stroke-linecap="round"><path d="M9 20V3.5"/><path d="M9 14.2C9 9.6 15.5 10.4 15.5 6.6"/><circle cx="9" cy="20" r="2.4" fill="${COBALT}" stroke="none"/><circle cx="15.5" cy="5" r="1.7" fill="${PAPER}" stroke-width="1.6"/></g>
-  <text x="68" y="48" fill="${INK}" font-family="${SERIF}" font-size="62" letter-spacing="8">FORK</text>
-  <text x="2" y="122" fill="${INK}" font-family="${SERIF}" font-size="38" letter-spacing="-.8">Everything comes from</text>
-  <text x="2" y="166" fill="${COBALT}" font-family="${SERIF}" font-size="38" font-style="italic" letter-spacing="-.8">something.</text>
-  <text x="2" y="210" fill="${MUTED}" font-family="${SANS}" font-size="13" font-weight="700" letter-spacing="2">A LIVE GENEALOGY OF INTERNET CULTURE</text>
+  <text x="68" y="48" fill="${INK}" font-family="${SERIF}" font-size="54" font-weight="600" letter-spacing="6">FORK</text>
+  <text x="2" y="122" fill="${INK}" font-family="${SERIF}" font-size="30" font-weight="500" letter-spacing="-1">Everything comes from</text>
+  <text x="2" y="166" fill="${COBALT}" font-family="${SERIF}" font-size="30" font-weight="500" letter-spacing="-1">something.<tspan fill="${COBALT}">█</tspan></text>
+  <text x="2" y="210" fill="${MUTED}" font-family="${SANS}" font-size="13" letter-spacing=".4">$ fork --trace internet-culture</text>
 </g>
 </svg>`;
 }
 
 /* small logo */
-const logo = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24"><rect width="24" height="24" rx="5.5" fill="#07090E"/><g fill="none" stroke="#1C3FB0" stroke-width="2" stroke-linecap="round"><path d="M9 20V3.5"/><path d="M9 14.2C9 9.6 15.5 10.4 15.5 6.6"/></g><circle cx="9" cy="20" r="2.3" fill="#1C3FB0"/><circle cx="15.5" cy="5" r="1.6" fill="#07090E" stroke="#1C3FB0" stroke-width="1.5"/></svg>`;
+const logo = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24"><rect width="24" height="24" rx="5.5" fill="#07090E"/><g fill="none" stroke="#7E97FF" stroke-width="2" stroke-linecap="round"><path d="M9 20V3.5"/><path d="M9 14.2C9 9.6 15.5 10.4 15.5 6.6"/></g><circle cx="9" cy="20" r="2.3" fill="#7E97FF"/><circle cx="15.5" cy="5" r="1.6" fill="#07090E" stroke="#7E97FF" stroke-width="1.5"/></svg>`;
 
 const files = { 'chart-timeline.svg': timeline(), 'chart-families.svg': families(), 'chart-depth.svg': deepest(), 'chart-platforms.svg': platforms(), 'banner.svg': banner(), 'logo.svg': logo };
 for (const [name, svg] of Object.entries(files)) { fs.writeFileSync(path.join(OUT, name), svg); console.log('wrote docs/media/' + name); }
