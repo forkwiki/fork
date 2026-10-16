@@ -145,7 +145,7 @@ gitGraph
 No framework, no bundler, no dependencies. It is one HTML file and four scripts.
 
 ```bash
-git clone https://github.com/<you>/fork.git
+git clone https://github.com/forkwiki/fork.git
 cd fork
 npm start            # → http://localhost:5173
 ```
